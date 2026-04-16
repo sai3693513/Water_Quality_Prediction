@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | AquaPredict</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .perf-analysis-section {
+            margin-top: 40px;
+            text-align: center;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .perf-main-title {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .model-perf-block {
+            margin-bottom: 40px;
+        }
+        .model-title {
+            color: #28a745;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .metrics-table {
+            margin: 0 auto 20px auto;
+            border-collapse: collapse;
+            width: 300px;
+        }
+        .metrics-table th, .metrics-table td {
+            padding: 8px;
+            text-align: center;
+        }
+        .cm-title {
+            color: #dc3545;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        .heatmap-container {
+            display: inline-block;
+            margin: 0 auto;
+        }
+        .heatmap-hm {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ddd;
+        }
+        .hm-row {
+            display: flex;
+            flex-direction: row;
+        }
+        .hm-cell {
+            width: 80px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .main-diag {
+            background-color: #0b1d3a;
+            color: #fff;
+        }
+        .off-diag {
+            background-color: #fce7d9;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">AquaPredict</div>
+        <ul class="nav-links">
+            <li><a href="/dashboard">Home</a></li>
+            <li><a href="/upload">Upload Dataset</a></li>
+            <li><a href="/graph">Graph</a></li>
+            <li><a href="/performance">Performance Analysis</a></li>
+            <li><a href="/history">History</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <section class="dashboard-page">
+        <div class="dashboard-content">
+            <div class="dashboard-header">
+                <span class="page-badge">Smart Dashboard</span>
+                <h1>Welcome, {{ full_name }}</h1>
+                <p>Manage upload, training, algorithm comparison, scanning, and prediction history.</p>
+            </div>
+
+            <div class="dashboard-actions">
+                <div class="action-card">
+                    <div class="action-icon">📂</div>
+                    <h3>Upload Dataset</h3>
+                    <p>Upload your CSV water dataset for training and scanning.</p>
+                    <a href="/upload" class="card-btn">Open</a>
+                </div>
+
+                <div class="action-card">
+                    <div class="action-icon">📊</div>
+                    <h3>Graph</h3>
+                    <p>Compare Random Forest and XGBoost performance visually.</p>
+                    <a href="/graph" class="card-btn">View Graph</a>
+                </div>
+
+                <div class="action-card">
+                    <div class="action-icon">🧠</div>
+                    <h3>Best Algorithm</h3>
+                    <p>Current best algorithm: <strong>{{ best_algo }}</strong></p>
+                    <a href="/upload" class="card-btn">Train Now</a>
+                </div>
+
+                <div class="action-card">
+                    <div class="action-icon">🕘</div>
+                    <h3>History</h3>
+                    <p>Total scans in your history: <strong>{{ history_count }}</strong></p>
+                    <a href="/history" class="card-btn">Open History</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    {% include 'chat.html' %}
+</body>
+</html>

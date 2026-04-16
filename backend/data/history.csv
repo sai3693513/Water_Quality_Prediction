@@ -1,0 +1,27 @@
+timestamp,username,algorithm,ph,hardness,solids,chloramines,sulfate,conductivity,organic_carbon,trihalomethanes,turbidity,result
+2026-03-16 09:32:52,srilatha,Extra Trees,90.0,90.0,90.0,90.0,90.0,90.0,90.0,90.0,90.0,Safe Water
+2026-03-16 18:32:52,indu,Random Forest,7.0,78.0,6.0,0.0,4.0,1.0,2.0,0.0,9.0,Safe Water
+2026-03-17 12:59:00,sai3693513@gmail.com,Random Forest,1.0,9.0,2.0,8.0,3.0,7.0,4.0,6.0,5.0,Unsafe Water
+2026-03-17 13:01:46,sai3693513@gmail.com,XGBoost,13.5,500.0,20000.0,12.0,600.0,25.0,150.0,150.0,10.0,Unsafe Water
+2026-03-17 13:05:18,sai3693513@gmail.com,Random Forest,2.0,10.0,3.0,9.0,4.0,8.0,5.0,7.0,6.0,Unsafe Water
+2026-03-17 14:38:55,sai3693513@gmail.com,Random Forest,6.5,55.0,50.0,2.0,220.0,55.0,2.0,80.0,1.0,Unsafe Water
+2026-03-17 19:40:44,indu,Random Forest,67.0,56.0,56.0,89.0,22.0,56.0,34.0,90.0,98.0,Unsafe Water
+2026-03-17 19:46:14,indu,Random Forest,7.0,76.0,67.0,3.0,45.0,89.0,9.0,55.0,3.0,Unsafe Water
+2026-03-17 21:04:01,indu,Random Forest,7.0,75.0,76.0,3.0,30.0,0.0,0.0,0.0,0.0,Unsafe Water
+2026-03-17 21:05:45,indu,Random Forest,8.0,125.0,100.0,2.0,100.0,0.0,0.0,0.0,0.0,Unsafe Water
+2026-03-17 21:56:48,indu,Random Forest,7.0,100.0,100.0,2.0,100.0,0.0,0.0,0.0,0.0,Unsafe Water
+2026-03-18 09:55:47,pavan1,Random Forest,3.0,1.0,5.0,2.0,8.0,0.0,0.0,0.0,0.0,Unsafe Water
+2026-03-18 10:07:35,pavan1,Random Forest,7.5,70.0,500.0,3.0,60.0,0.0,0.0,0.0,0.0,Unsafe Water
+2026-03-18 10:15:16,pavan1,Random Forest,7.2,100.0,300.0,2.0,150.0,0.0,0.0,0.0,0.0,Safe Water
+2026-03-18 10:16:04,pavan1,XGBoost,8.0,600.0,400.0,2.0,260.0,0.0,0.0,0.0,0.0,Unsafe Water
+2026-03-20 13:54:34,pavan1,Random Forest,7.0,200.0,600.0,3.0,500.0,0.0,0.0,0.0,0.0,Unsafe Water
+2026-03-20 13:55:41,pavan1,Random Forest,6.5,100.0,300.0,3.0,212.0,0.0,0.0,0.0,0.0,Safe Water
+2026-03-29 15:00:47,srinu,Random Forest,6.0,100.0,159.0,3.0,4.0,0.0,0.0,0.0,0.0,Unsafe Water
+2026-03-29 15:06:30,srinu,XGBoost,2.0,80.0,100.0,3.0,50.0,0.0,0.0,0.0,0.0,Unsafe Water
+2026-03-29 15:07:50,srinu,Random Forest,7.0,100.0,400.0,150.0,150.0,0.0,0.0,0.0,0.0,Unsafe Water
+2026-03-29 15:09:33,srinu,Random Forest,7.0,150.0,15000.0,7.0,300.0,0.0,0.0,0.0,0.0,Unsafe Water
+2026-03-29 15:15:03,srinu,XGBoost,7.0,78.0,6.0,0.0,4.0,0.0,0.0,0.0,0.0,Safe Water
+2026-03-29 15:19:08,srinu,XGBoost,7.0,99.0,0.0,45.0,45.0,0.0,0.0,0.0,0.0,Unsafe Water
+2026-04-09 19:40:06,indu,Random Forest,4.0,4.0,100.0,55.0,400.0,0.0,0.0,0.0,0.0,Unsafe Water
+2026-04-09 19:48:00,indu,XGBoost,7.0,100.0,200.0,3.0,200.0,0.0,0.0,0.0,0.0,Safe Water
+2026-04-10 20:38:32,indu,Random Forest,4.0,4.0,100.0,22.0,400.0,0.0,0.0,0.0,0.0,Unsafe Water

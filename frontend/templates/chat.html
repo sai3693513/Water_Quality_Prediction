@@ -1,0 +1,116 @@
+<!-- Floating Chat Widget -->
+<div class="chat-widget" id="chatWidget">
+    <div class="chat-header" id="chatHeader">
+        <div class="chat-title">
+            <span class="chat-icon">🤖</span>
+            <strong>Aqua Assistant</strong>
+        </div>
+        <button class="chat-toggle" id="chatToggleBtn">_</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+        <div class="chat-messages" id="chatMessages">
+            <div class="message assistant-msg">
+                Hello! I am your Water Quality Prediction Assistant. How can I help you understand the parameters or the safety of your water today?
+                <br><br>
+                <small style="color: #0b1d3a;">(Optional) Enter your Gemini API Key below for advanced AI responses.</small>
+            </div>
+        </div>
+        
+        <div class="chat-input-area">
+            <input type="password" id="apiKeyInput" placeholder="Gemini API Key (Optional)..." class="api-input" />
+            <div class="chat-input-row">
+                <input type="text" id="chatInput" placeholder="Ask about pH, safety..." autocomplete="off" />
+                <button id="chatSendBtn">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const chatWidget = document.getElementById('chatWidget');
+    const chatHeader = document.getElementById('chatHeader');
+    const chatToggleBtn = document.getElementById('chatToggleBtn');
+    const chatBody = document.getElementById('chatBody');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const apiKeyInput = document.getElementById('apiKeyInput');
+    const chatSendBtn = document.getElementById('chatSendBtn');
+
+    let isExpanded = false;
+
+    // Toggle Chat Widget
+    chatHeader.addEventListener('click', (e) => {
+        if(e.target === chatInput || e.target === chatSendBtn || e.target === apiKeyInput) return;
+        isExpanded = !isExpanded;
+        if(isExpanded) {
+            chatWidget.classList.add('expanded');
+            chatToggleBtn.innerText = '-';
+            // If there's a recent prediction, we could auto-ask about it or display a message
+            fetchInitialPredictionMessage();
+        } else {
+            chatWidget.classList.remove('expanded');
+            chatToggleBtn.innerText = '_';
+        }
+    });
+
+    function appendMessage(text, isUser) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = isUser ? 'message user-msg' : 'message assistant-msg';
+        msgDiv.innerText = text;
+        chatMessages.appendChild(msgDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    let fetchedInitial = false;
+    async function fetchInitialPredictionMessage() {
+        if(fetchedInitial) return;
+        fetchedInitial = true;
+        
+        // If there's a prediction_msg in the session, we can fetch it by sending "prediction"
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: "prediction", api_key: "" })
+            });
+            const data = await response.json();
+            if(data.reply && data.reply !== "I don't see a recent prediction right now. Please enter the values and click predict!") {
+                 appendMessage(data.reply, false);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async function sendMessage() {
+        const text = chatInput.value.trim();
+        if(!text) return;
+        
+        appendMessage(text, true);
+        chatInput.value = '';
+
+        const apiKey = apiKeyInput.value.trim();
+
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: text, api_key: apiKey })
+            });
+            
+            const data = await response.json();
+            if(data.reply) {
+                appendMessage(data.reply, false);
+            } else if (data.error) {
+                appendMessage("Error: " + data.error, false);
+            }
+        } catch(e) {
+            appendMessage("Failed to communicate with server.", false);
+        }
+    }
+
+    chatSendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') sendMessage();
+    });
+</script>

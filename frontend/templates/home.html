@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | AquaPredict</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+   
+
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <div class="hero-left">
+                <span class="hero-badge">AI Powered Water Analysis</span>
+                <h1>Professional Water Quality Prediction Platform</h1>
+                <p>
+                    Upload datasets, train machine learning models, select algorithms,
+                    predict water quality, and compare algorithm performance.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="/dashboard" class="btn-primary">login</a>
+                    <a href="/upload" class="btn-secondary">Explore</a>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="glass-card">
+                    <h3>Live Water Intelligence</h3>
+                    <div class="stat-grid">
+                        <div class="stat-box">
+                            <span>Algorithms</span>
+                            <strong>2</strong>
+                        </div>
+                        <div class="stat-box">
+                            <span>Dataset</span>
+                            <strong>CSV</strong>
+                        </div>
+                        <div class="stat-box">
+                            <span>Output</span>
+                            <strong>Safe / Unsafe</strong>
+                        </div>
+                        <div class="stat-box">
+                            <span>Mode</span>
+                            <strong>AI</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+    "RandomForestClassifier": {
+        "0": {
+            "recall": 0.95,
+            "precision": 0.95,
+            "f1-score": 0.95
+        },
+        "1": {
+            "recall": 0.95,
+            "precision": 0.95,
+            "f1-score": 0.95
+        },
+        "cm": [
+            [
+                1897,
+                101
+            ],
+            [
+                108,
+                1890
+            ]
+        ]
+    },
+    "XGBoost": {
+        "0": {
+            "recall": 0.91,
+            "precision": 0.89,
+            "f1-score": 0.9
+        },
+        "1": {
+            "recall": 0.89,
+            "precision": 0.91,
+            "f1-score": 0.9
+        },
+        "cm": [
+            [
+                1814,
+                184
+            ],
+            [
+                216,
+                1782
+            ]
+        ]
+    }
+}

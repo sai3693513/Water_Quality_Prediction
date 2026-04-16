@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaPredict</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="landing-page">
+    <nav class="navbar">
+        <div class="logo">AquaPredict</div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/auth">Login / Signup</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <div class="hero-left">
+                <span class="hero-badge">AI Powered Water Analysis</span>
+                <h1>Water Quality Prediction Platform</h1>
+                <p>
+                    Upload live datasets, train machine learning models, predict water quality,
+                    and monitor history through a modern professional dashboard.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="/auth" class="btn-primary">Get Started</a>
+                    <a href="/auth" class="btn-secondary">Explore Platform</a>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="glass-card">
+                    <h3>Live Water Intelligence</h3>
+                    <div class="stat-grid">
+                        <div class="stat-box">
+                            <span>Accuracy</span>
+                            <strong>95.2%</strong>
+                        </div>
+                        <div class="stat-box">
+                            <span>Samples</span>
+                            <strong>12.4K</strong>
+                        </div>
+                        <div class="stat-box">
+                            <span>Status</span>
+                            <strong>Active</strong>
+                        </div>
+                        <div class="stat-box">
+                            <span>Models</span>
+                            <strong>4+</strong>
+                        </div>
+                    </div>
+
+                    <div class="mini-chart">
+                        <div class="bar bar1"></div>
+                        <div class="bar bar2"></div>
+                        <div class="bar bar3"></div>
+                        <div class="bar bar4"></div>
+                        <div class="bar bar5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

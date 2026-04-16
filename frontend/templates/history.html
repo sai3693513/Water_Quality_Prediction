@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History | AquaPredict</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">AquaPredict</div>
+        <ul class="nav-links">
+            <li><a href="/dashboard">Home</a></li>
+            <li><a href="/upload">Upload Dataset</a></li>
+            <li><a href="/graph">Graph</a></li>
+            <li><a href="/performance">Performance Analysis</a></li>
+            <li><a href="/history">History</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <section class="history-page">
+        <div class="history-content">
+            <div class="history-header">
+                <span class="page-badge">Saved Results</span>
+                <h1>Scan History</h1>
+                <p>All your previous scans and selected algorithms.</p>
+            </div>
+
+            <div class="history-table-card">
+                {% if records %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Algorithm</th>
+                            <th>pH</th>
+                            <th>Hardness</th>
+                            <th>Solids</th>
+                            <th>Chloramines</th>
+                            <th>Sulfate</th>
+                            <th>Conductivity</th>
+                            <th>Organic Carbon</th>
+                            <th>Trihalomethanes</th>
+                            <th>Turbidity</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in records %}
+                        <tr>
+                            <td>{{ row.timestamp }}</td>
+                            <td>{{ row.algorithm }}</td>
+                            <td>{{ row.ph }}</td>
+                            <td>{{ row.hardness }}</td>
+                            <td>{{ row.solids }}</td>
+                            <td>{{ row.chloramines }}</td>
+                            <td>{{ row.sulfate }}</td>
+                            <td>{{ row.conductivity }}</td>
+                            <td>{{ row.organic_carbon }}</td>
+                            <td>{{ row.trihalomethanes }}</td>
+                            <td>{{ row.turbidity }}</td>
+                            <td class="{% if row.result == 'Unsafe Water' %}status-unsafe{% else %}status-safe{% endif %}">
+                                {{ row.result }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p class="empty-state">No history available yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</body>
+</html>

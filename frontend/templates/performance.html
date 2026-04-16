@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Analysis | AquaPredict</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .perf-page {
+            position: relative;
+            min-height: 100vh;
+            padding: 130px 60px 60px;
+            background:
+                linear-gradient(rgba(4, 13, 25, 0.72), rgba(5, 18, 35, 0.82)),
+                url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        .perf-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .perf-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .perf-analysis-section {
+            margin: 0 auto;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+            padding: 40px 30px;
+            border-radius: 22px;
+        }
+
+        .perf-main-title {
+            font-size: 32px;
+            color: #ffffff;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+
+        .model-perf-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .model-perf-block {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .model-title {
+            color: #12d8fa;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .metrics-table {
+            margin: 0 auto 30px auto;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 400px;
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .metrics-table th, .metrics-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+        }
+
+        .metrics-table th {
+            background: rgba(255, 255, 255, 0.10);
+        }
+
+        .cm-title {
+            color: #ffb8b8;
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .heatmap-container {
+            display: inline-block;
+            margin: 0 auto;
+            background: #fff;
+            padding: 2px;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .heatmap-hm {
+            display: flex;
+            flex-direction: column;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .hm-row {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .hm-cell {
+            width: 100px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .main-diag {
+            background-color: #0b1d3a;
+        }
+
+        .off-diag {
+            background-color: #fce7d9;
+            color: #333;
+        }
+
+        @media (max-width: 900px) {
+            .model-perf-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">AquaPredict</div>
+        <ul class="nav-links">
+            <li><a href="/dashboard">Home</a></li>
+            <li><a href="/upload">Upload Dataset</a></li>
+            <li><a href="/graph">Graph</a></li>
+            
+            <li><a href="/performance">Performance Analysis</a></li>
+            
+            <li><a href="/history">History</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <section class="perf-page">
+        <div class="perf-content">
+            <div class="perf-header">
+                <span class="page-badge">Detailed Metrics</span>
+                <h1>Model Evaluation</h1>
+                <p>View the recall, precision, F1-score, and confusion matrix for each trained model.</p>
+            </div>
+
+            {% if message %}
+            <div class="alert-box" style="max-width: 700px; margin: 0 auto 30px; padding: 14px 18px; text-align: center; background: rgba(28, 200, 138, 0.2); border-radius: 14px; border: 1px solid rgba(28, 200, 138, 0.4); color: #c3f1e0;">
+                {{ message }}
+            </div>
+            {% endif %}
+
+            {% if performance %}
+            <div class="perf-analysis-section">
+                <div class="perf-main-title">Performance Analysis Overview</div>
+
+                <div class="model-perf-grid">
+                    {% for model_name, perf in performance.items() %}
+                    <div class="model-perf-block">
+                        <div class="model-title">
+                            {% if loop.index == 2 %}
+                            {{ model_name }}
+                            {% else %}
+                            {{ model_name }}
+                            {% endif %}
+                        </div>
+                        
+                        <table class="metrics-table">
+                            <thead>
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Recall</th>
+                                    <th>Precision</th>
+                                    <th>F1-score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>0 (Safe)</td>
+                                    <td>{{ "%.2f"|format(perf['0']['recall']) }}</td>
+                                    <td>{{ "%.2f"|format(perf['0']['precision']) }}</td>
+                                    <td>{{ "%.2f"|format(perf['0']['f1-score']) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>1 (Unsafe)</td>
+                                    <td>{{ "%.2f"|format(perf['1']['recall']) }}</td>
+                                    <td>{{ "%.2f"|format(perf['1']['precision']) }}</td>
+                                    <td>{{ "%.2f"|format(perf['1']['f1-score']) }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="cm-title">Confusion Matrix</div>
+                        <div class="heatmap-container">
+                            <div class="heatmap-hm">
+                                <div class="hm-row">
+                                    <div class="hm-cell main-diag">{{ perf.cm[0][0] }}</div>
+                                    <div class="hm-cell off-diag">{{ perf.cm[0][1] }}</div>
+                                </div>
+                                <div class="hm-row">
+                                    <div class="hm-cell off-diag">{{ perf.cm[1][0] }}</div>
+                                    <div class="hm-cell main-diag">{{ perf.cm[1][1] }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% else %}
+            <div class="perf-analysis-section">
+                <p>No model has been trained yet. Please upload and train a dataset to view performance metrics.</p>
+                <br>
+                <a href="/upload" class="card-btn">Go to Training</a>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    {% include 'chat.html' %}
+</body>
+</html>
